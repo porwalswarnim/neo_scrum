@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Link,
+} from "react-router-dom";
+import LoginPage from "./loginPage/LoginPage";
+import RegistrationPage from "./registrationPage/RegistrationPage";
+import FeedbackPage from "./feedbackPage/FeedbackPage";
+import FeedbackAdd from "./feedbackAdd/FeedbackAdd";
+import "./App.css";
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Editt <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div
+        className="imagediv"
+        style={{
+          backgroundImage: `url("loginbackground.jpg")`,
+        }}
+      >
+        <Route exact path="/" component={() => <Redirect to="/login" />} />
+        <Link to="/login"></Link>
+        <Link to="/registration"></Link>
+        <Link to="/feedback"></Link>
+        <Link to="/feedbackAdd"></Link>
+        <Route exact path="/login" component={LoginPage} />
+        <Route path="/registration" component={RegistrationPage} />
+        <Route path="/feedback" component={FeedbackPage} />
+        <Route path="/feedbackAdd" component={FeedbackAdd} />
+      </div>
+    </Router>
   );
 }
 
