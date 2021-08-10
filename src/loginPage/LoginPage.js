@@ -7,6 +7,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+
+// t$loV5bgSd
 
 const useStyles = makeStyles((theme) => ({
   containerLogin: {
@@ -48,11 +51,29 @@ const LoginPage = () => {
 
   const history = useHistory();
 
-  const submitFormHandler = (e) => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
-    history.push("/feedback");
-    console.log(loginEmail)
-    console.log(loginPassword)
+    // history.push("/feedback");
+    const data = {
+      email: loginEmail,
+      password: loginPassword,
+    };
+    var config = {
+      method: "post",
+      url: "https://b7a148da068a.ngrok.io/DeveloperSignin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // ...data.getHeaders()
+      },
+      data: data,
+    };
+    console.log("data", data);
+    var a = await axios(config);
+    if (a) {
+      history.push("/feedback");
+    }
+    console.log(a);
   };
 
   return (

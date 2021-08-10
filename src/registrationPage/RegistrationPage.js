@@ -1,11 +1,12 @@
-import { Button,  Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
+import FormData from "form-data";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
-
 const useStyles = makeStyles({
   containerregister: {
     backgroundColor: "white",
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
     paddingTop: "50px",
   },
   formregistration: {
-    width: "100%", 
+    width: "100%",
     marginTop: "20px",
   },
   employeeNameRegister: {
@@ -42,12 +43,26 @@ const RegistrationPage = (props) => {
   const classes = useStyles(props);
   const [employeeName, setEmployeeName] = useState("");
   const [emailRegister, setEmailRegister] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
 
-  const submitFormHandlerRegister = (e) => {
+  const submitFormHandlerRegister = async (e) => {
     e.preventDefault();
-    console.log("e", e);
-    console.log("email", employeeName);
-    console.log("employeeName", emailRegister);
+
+    var data = new FormData();
+    data.append("profileImage", selectedFile);
+    data.append("email", emailRegister);
+    data.append("name", employeeName);
+    var config = {
+      method: "post",
+      url: "https://b7a148da068a.ngrok.io/register",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // ...data.getHeaders()
+      },
+      data: data,
+    };
+    var a = await axios(config);
   };
   return (
     <Container maxWidth="sm" className={classes.containerregister}>
@@ -80,9 +95,20 @@ const RegistrationPage = (props) => {
           label="Email"
         />
 
-        <TextField type="file" className={classes.fileupload}>
+        {/* <TextField type="file" className={classes.fileupload}
+          onChange={(e) => setSelectedFile(e.target.value)}>
           {" "}
-        </TextField>
+        </TextField> */}
+        <Button
+          variant="contained"
+          component="label"
+          className={classes.fileupload}
+        >
+          <input
+            onChange={(e) => setSelectedFile(e.target.files[0])}
+            type="file"
+          />
+        </Button>
         <Button
           type="submit"
           fullWidth
