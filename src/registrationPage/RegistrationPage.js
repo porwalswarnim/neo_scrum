@@ -7,6 +7,7 @@ import axios from "axios";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import React, { useState } from "react";
+import { REGISTER_URL } from "../utils";
 const useStyles = makeStyles({
   containerregister: {
     backgroundColor: "white",
@@ -54,7 +55,7 @@ const RegistrationPage = (props) => {
     data.append("name", employeeName);
     var config = {
       method: "post",
-      url: "https://b7a148da068a.ngrok.io/register",
+      url: REGISTER_URL,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -63,6 +64,8 @@ const RegistrationPage = (props) => {
       data: data,
     };
     var a = await axios(config);
+    console.log(a.data)
+    console.log(a)
   };
   return (
     <Container maxWidth="sm" className={classes.containerregister}>

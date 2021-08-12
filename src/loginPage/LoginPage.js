@@ -8,8 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { LOGIN_URL } from "../utils";
 
-// t$loV5bgSd
+// qsacvlkGl6
 
 const useStyles = makeStyles((theme) => ({
   containerLogin: {
@@ -50,17 +51,16 @@ const LoginPage = () => {
   const [loginPassword, setLoginPassword] = useState("");
 
   const history = useHistory();
-
+  
   const submitFormHandler = async (e) => {
     e.preventDefault();
-    // history.push("/feedback");
     const data = {
       email: loginEmail,
       password: loginPassword,
     };
     var config = {
       method: "post",
-      url: "https://b7a148da068a.ngrok.io/DeveloperSignin",
+      url: LOGIN_URL,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -68,12 +68,21 @@ const LoginPage = () => {
       },
       data: data,
     };
-    console.log("data", data);
-    var a = await axios(config);
-    if (a) {
+
+    try {
+      const res = await axios(config);
+      const { email, name, profile, token } = res?.data?.UserLogin;
+      localStorage.setItem('email', email);
+      localStorage.setItem('name', name);
+      localStorage.setItem('profile', profile);
+      localStorage.setItem('token', token);
+    
+      alert("Logged In Succesfully")
       history.push("/feedback");
+    } catch(err) {
+        alert('Failed to login');
     }
-    console.log(a);
+    
   };
 
   return (

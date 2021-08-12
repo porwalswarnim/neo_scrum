@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import FeedbackAddCard from "./FeedbackAddCard";
-
 const useStyles = makeStyles({
   containerFeedback: {
     backgroundColor: "white",
@@ -23,7 +22,8 @@ const useStyles = makeStyles({
 
 const FeedbackAdd = (props) =>{
     const classes = useStyles(props);
-    const history = useHistory();
+    const history = useHistory(); 
+    
     return(
         <Container className={classes.containerFeedback}>
         <AppBar position="static" className={classes.headerFeedback}>
@@ -31,7 +31,7 @@ const FeedbackAdd = (props) =>{
             <Grid container>
               <Grid item xs>
                 <Typography variant="h6" className={classes.title}>
-                  Swarnim Porwal
+                {localStorage.getItem('name')}
                 </Typography>
               </Grid>
               <Grid item>
@@ -50,7 +50,7 @@ const FeedbackAdd = (props) =>{
           </Toolbar>
         </AppBar>
         <Grid container item xs={12}>
-        {[1, 2, 3].map((e, i) => {
+        {[1,2,3].map((e, i) => {
           return (
             <Grid item xs={12} key={i} sm={4}>
               <FeedbackAddCard />{" "}

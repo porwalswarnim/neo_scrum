@@ -28,7 +28,7 @@ function App(props) {
         <Link to="/feedbackAdd"></Link>
         <Route exact path="/login" component={LoginPage} />
         <Route path="/registration" component={RegistrationPage} />
-        <Route path="/feedback" component={FeedbackPage} />
+        <Route path="/feedback" component={FeedbackPage}  />
         <Route path="/feedbackAdd" component={FeedbackAdd} />
       </div>
     </Router>
