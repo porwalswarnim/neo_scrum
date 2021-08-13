@@ -1,11 +1,13 @@
-import { useHistory } from "react-router-dom";
-import { Button, Container } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import FeedbackAddCard from "./FeedbackAddCard";
+import { GET_ALL_RECEIVERS } from "../utils";
+import { ADD_FEADBACK } from "../utils";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Header from "../header/Header";
+import FeedbackCard from "../feedbackPage/FeedbackCard";
 const useStyles = makeStyles({
   containerFeedback: {
     backgroundColor: "white",
@@ -15,51 +17,84 @@ const useStyles = makeStyles({
   headerFeedback: {
     backgroundColor: "#40d2cb6b",
   },
-   title: {
+  title: {
     color: "black",
   },
-})
+});
 
-const FeedbackAdd = (props) =>{
-    const classes = useStyles(props);
-    const history = useHistory(); 
-    
-    return(
-        <Container className={classes.containerFeedback}>
-        <AppBar position="static" className={classes.headerFeedback}>
-          <Toolbar>
-            <Grid container>
-              <Grid item xs>
-                <Typography variant="h6" className={classes.title}>
-                {localStorage.getItem('name')}
-                </Typography>
-              </Grid>
-              <Grid item>
-               
-                <Button
-                  onClick={() => history.push("/login")}
-                  type="submit"
-                  value="Submit"
-                  variant="contained"
-                  color="secondary"
-                >
-                  Logout
-                </Button>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Grid container item xs={12}>
-        {[1,2,3].map((e, i) => {
+const FeedbackAdd = (props) => {
+  const classes = useStyles(props);
+  const [allReceivers, setAllReceivers] = useState([]);
+  const [allFeedback, setAllFeedback] = useState([]);
+  useEffect(() => {
+    const data = {
+      token: localStorage.getItem("token"),
+    };
+    var config = {
+      method: "post",
+      url: GET_ALL_RECEIVERS,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    try {
+      (async () => {
+        const res = await axios(config);
+        setAllReceivers(res?.data || []);
+      })();
+    } catch (err) {
+      setAllReceivers([]);
+      alert("Failed to login");
+    }
+  }, []);
+
+  const handleSubmitFeedback = (data) => {
+    var config = {
+      method: "post",
+      url: ADD_FEADBACK,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    try {
+      (async () => {
+        const res = await axios(config);
+        console.log("res", res.data.Feadbacks);
+        setAllFeedback(res?.data?.Feadbacks || []);
+      })();
+    } catch (err) {
+      setAllFeedback([]);
+      alert("Failed to login");
+    }
+  };
+  console.log("allFeedback", allFeedback);
+
+  return (
+    <Container className={classes.containerFeedback}>
+      <Header />
+      <Grid container item xs={12}>
+        {allReceivers.map((ele, i) => {
           return (
             <Grid item xs={12} key={i} sm={4}>
-              <FeedbackAddCard />{" "}
+              <FeedbackAddCard
+                data={ele}
+                handleSubmitFeedback={handleSubmitFeedback}
+              />
             </Grid>
           );
         })}
       </Grid>
-        </Container>
-    )
-}
+      <Grid>
+        {allFeedback.map((ele, i) => {
+          return <FeedbackCard />;
+        })}
+      </Grid>
+    </Container>
+  );
+};
 
-export default FeedbackAdd
+export default FeedbackAdd;
