@@ -29,14 +29,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FeedbackAddCard =() => {
+const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
   const classes = useStyles();
   const [feedback, setFeedback] = useState("");
 
   const submitFeedback = (e) => {
     e.preventDefault();
-   console.log(feedback)
   };
+
+  const handleSubmit = () => {
+    const req = {
+      token: localStorage.getItem('token'),
+      email: data.email,
+      name: data.name,
+      feadback: feedback
+    }
+    handleSubmitFeedback(req)
+  }
 
   return (
     <Card className={classes.root}>
@@ -50,7 +59,7 @@ const FeedbackAddCard =() => {
           </CardContent>
         <CardContent>
           <Typography  variant="h5" component="h2" style={{ marginTop:'20px' ,fontWeight: "bold", textAlign :'center' }}>
-            Swarnim Porwal
+            {data.name}
           </Typography>
           <form className={classes.feedbackInput} onSubmit={submitFeedback}>
             <TextField
@@ -78,6 +87,7 @@ const FeedbackAddCard =() => {
                   value="Submit"
                   variant="contained"
                   color="primary"
+                  onClick={() => handleSubmit()}
                 >
                   Submit Feedback 
                 </Button>

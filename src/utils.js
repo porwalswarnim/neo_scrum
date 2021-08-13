@@ -1,4 +1,4 @@
-export  const API_END_POINT = "https://b705936c6522.ngrok.io/";
+export  const API_END_POINT = "https://f4fb2833aadb.ngrok.io";
 
 export const LOGIN_URL = `${API_END_POINT}/DeveloperSignin`;
 export const REGISTER_URL = `${API_END_POINT}/register`;

@@ -41,7 +41,7 @@ const Header = (props) => {
             </Typography>
           </Grid>
           <Grid item>
-            {location.pathname('/feedback') && <Button
+            <Button
               className={classes.buttonLogoutFeedback}
               onClick={() => history.push("/feedbackAdd")}
               type="submit"
@@ -51,7 +51,7 @@ const Header = (props) => {
               color="primary"
             >
               Add Feedback
-            </Button>}
+            </Button>
             <Button
               onClick={logoutHandler}
               type="button"

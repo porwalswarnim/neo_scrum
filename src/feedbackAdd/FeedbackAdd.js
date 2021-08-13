@@ -7,7 +7,7 @@ import { ADD_FEADBACK } from "../utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../header/Header";
-import FeedbackCard from "../feedbackPage/FeedbackCard";
+
 const useStyles = makeStyles({
   containerFeedback: {
     backgroundColor: "white",
@@ -88,11 +88,7 @@ const FeedbackAdd = (props) => {
           );
         })}
       </Grid>
-      <Grid>
-        {allFeedback.map((ele, i) => {
-          return <FeedbackCard />;
-        })}
-      </Grid>
+      
     </Container>
   );
 };

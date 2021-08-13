@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Grid, Typography } from "@material-ui/core";
 
-const FeedbackCard = (props) => {
+const FeedbackCard = ({data}) => {
   return (
     <Grid container>
       <Card style={{ width: "100%", margin: 40, padding: 0}}>
@@ -17,7 +17,7 @@ const FeedbackCard = (props) => {
           <Grid>
             <Box mt={5} mb={10}>
               <Typography style={{ fontWeight: "bold" }}>
-                Great Swarnim Porwal
+                {data?.feadback}
               </Typography>
             </Box>
           </Grid>
@@ -29,7 +29,7 @@ const FeedbackCard = (props) => {
                 backgroundColor: "whitesmoke",
               }}
             >
-              sent by : Swarnim Porwal
+              sent by : {data?.name}
             </Typography>
             <Typography
               style={{
@@ -38,7 +38,7 @@ const FeedbackCard = (props) => {
                 backgroundColor: "whitesmoke",
               }}
             >
-              posted on : 26 aug 2021
+              posted on : {data?.date}
             </Typography>
           </Grid>
         </CardContent>

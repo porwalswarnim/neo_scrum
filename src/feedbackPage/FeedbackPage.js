@@ -16,15 +16,17 @@ const useStyles = makeStyles({
 
 const FeedbackPage = (props) => {
   const classes = useStyles(props);
-  
+    const { feedback } = props;
+    const filteredRecords = feedback.filter(ele => ele.name);
+    console.log('filteredRecords', filteredRecords)
   return (
     <Container className={classes.containerFeedback}>
       <Header />
       <Grid container item xs={12}>
-        {[1, 2, 3, 4, 5, 6].map((e, i) => {
+        {filteredRecords.map((ele, i) => {
           return (
             <Grid item xs={12} sm={4} key={i}>
-              <FeedbackCard />{" "}
+              <FeedbackCard data={ele} />
             </Grid>
           );
         })}

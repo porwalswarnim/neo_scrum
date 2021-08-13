@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginPage = () => {
+const LoginPage = ({ setFeedback }) => {
   const classes = useStyles();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -76,7 +76,7 @@ const LoginPage = () => {
       localStorage.setItem('name', name);
       localStorage.setItem('profile', profile);
       localStorage.setItem('token', token);
-    
+      setFeedback(res.data.UserLogin.Feadbacks);
       alert("Logged In Succesfully")
       history.push("/feedback");
     } catch(err) {
