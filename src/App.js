@@ -10,6 +10,7 @@ import LoginPage from "./loginPage/LoginPage";
 import RegistrationPage from "./registrationPage/RegistrationPage";
 import FeedbackPage from "./feedbackPage/FeedbackPage";
 import FeedbackAdd from "./feedbackAdd/FeedbackAdd";
+import PrivateRoute from "./PrivateRoute";
 import "./App.css";
 
 const App = () => {
@@ -34,7 +35,7 @@ const App = () => {
           render={() => <FeedbackPage feedback={feedback} />}
         />
         {/* <Route path="/feedback" component={() => <FeedbackPage(feedback)}  /> */}
-        <Route path="/feedbackAdd" component={FeedbackAdd} />
+        <PrivateRoute path="/feedbackAdd" component={FeedbackAdd} />
       </div>
     </Router>
   );

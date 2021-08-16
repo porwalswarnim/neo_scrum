@@ -63,7 +63,6 @@ const FeedbackAdd = (props) => {
     try {
       (async () => {
         const res = await axios(config);
-        console.log("res", res.data.Feadbacks);
         setAllFeedback(res?.data?.Feadbacks || []);
       })();
     } catch (err) {
@@ -71,7 +70,6 @@ const FeedbackAdd = (props) => {
       alert("Failed to login");
     }
   };
-  console.log("allFeedback", allFeedback);
 
   return (
     <Container className={classes.containerFeedback}>

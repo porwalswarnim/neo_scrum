@@ -24,6 +24,7 @@ const FeedbackCard = ({data}) => {
           <Grid container direction="column">
             <Typography
               style={{
+                textTransform: 'capitalize',
                 textAlign: "right",
                 fontSize: "small",
                 backgroundColor: "whitesmoke",

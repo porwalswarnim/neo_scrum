@@ -48,7 +48,6 @@ const RegistrationPage = (props) => {
 
   const submitFormHandlerRegister = async (e) => {
     e.preventDefault();
-
     var data = new FormData();
     data.append("profileImage", selectedFile);
     data.append("email", emailRegister);
@@ -64,8 +63,6 @@ const RegistrationPage = (props) => {
       data: data,
     };
     var a = await axios(config);
-    console.log(a.data)
-    console.log(a)
   };
   return (
     <Container maxWidth="sm" className={classes.containerregister}>

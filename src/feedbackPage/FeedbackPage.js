@@ -17,8 +17,7 @@ const useStyles = makeStyles({
 const FeedbackPage = (props) => {
   const classes = useStyles(props);
     const { feedback } = props;
-    const filteredRecords = feedback.filter(ele => ele.name);
-    console.log('filteredRecords', filteredRecords)
+    const filteredRecords = feedback.filter(ele => ele.name || ele.date);
   return (
     <Container className={classes.containerFeedback}>
       <Header />

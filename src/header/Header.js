@@ -7,9 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from '@material-ui/core/Avatar';
 import Toolbar from "@material-ui/core/Toolbar";
-import {
-  useLocation
-} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const useStyles = makeStyles({
     headerFeedback: {
@@ -17,13 +15,16 @@ const useStyles = makeStyles({
     },
     title: {
       color: "black",
+      paddingLeft :'15px',
+      fontWeight : 'bold',
+      fontSize : '25px'
     },
     buttonLogoutFeedback: {
       marginRight: "10px",
     },
   });
 const Header = (props) => {
-  let location = useLocation();
+  const location = useLocation();
   const classes = useStyles(props);
   const history = useHistory();
   const logoutHandler = () =>{
@@ -35,13 +36,13 @@ const Header = (props) => {
       <Toolbar>
         <Grid container>
           <Grid item container row xs>
-            <Avatar alt="Remy Sharp" src={localStorage.getItem('profile')} />
-            <Typography variant="h6" className={classes.title}>
+            <Avatar alt="Remy Sharp" src='profileimage.jpg' />
+            <Typography variant="h6" className={classes.title} style={{textTransform: 'capitalize'}}>
               {localStorage.getItem("name")}
             </Typography>
           </Grid>
           <Grid item>
-            <Button
+          {location.pathname === "/feedback" && <Button
               className={classes.buttonLogoutFeedback}
               onClick={() => history.push("/feedbackAdd")}
               type="submit"
@@ -51,7 +52,7 @@ const Header = (props) => {
               color="primary"
             >
               Add Feedback
-            </Button>
+            </Button>}
             <Button
               onClick={logoutHandler}
               type="button"

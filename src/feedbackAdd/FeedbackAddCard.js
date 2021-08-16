@@ -7,7 +7,9 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import CharacterCounter from 'react-character-counter'
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [feedback, setFeedback] = useState("");
 
   const submitFeedback = (e) => {
@@ -38,6 +41,7 @@ const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
   };
 
   const handleSubmit = () => {
+    
     const req = {
       token: localStorage.getItem('token'),
       email: data.email,
@@ -45,6 +49,7 @@ const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
       feadback: feedback
     }
     handleSubmitFeedback(req)
+    history.push("/feedback")
   }
 
   return (
@@ -72,6 +77,10 @@ const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
               type="text"
               label="Write your feedback here.. "
             />
+            <Grid
+             item
+             container
+             justifyContent="space-between">
             <Typography
               style={{
                 textAlign: "left",
@@ -79,13 +88,17 @@ const FeedbackAddCard =({ data, handleSubmitFeedback }) => {
               }}
             >
              Max 100 characters
+          
             </Typography>
+            <Typography>   {feedback.length}/100</Typography>
+            </Grid >
             <Grid container item justifyContent="flex-end">
             <Button
           style={{ marginTop:'20px' , textAlign :'center' }}
                   type="submit"
                   value="Submit"
                   variant="contained"
+                  disabled={feedback.length<1}
                   color="primary"
                   onClick={() => handleSubmit()}
                 >
